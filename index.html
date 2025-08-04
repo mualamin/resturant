@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Sign Up - MC Restaurant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Background image with overlay */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .restaurant-header {
+      background: transparent;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    }
+    .auth-box {
+      max-width: 400px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      color: #343a40;
+    }
+    .form-toggle {
+      text-align: center;
+      margin-top: 1rem;
+      color: #343a40;
+    }
+    .form-toggle span {
+      cursor: pointer;
+      color: #0d6efd;
+      text-decoration: underline;
+    }
+    label {
+      color: #343a40;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Restaurant Header -->
+  <header class="restaurant-header">
+    <h1>MC Restaurant</h1>
+    <p>Welcome! Please log in or sign up to continue.</p>
+  </header>
+
+  <!-- Auth Box -->
+  <div class="auth-box">
+    <h3 id="formTitle" class="text-center">Login</h3>
+
+    <!-- Login Form -->
+    <form id="loginForm" action="login.php" method="POST">
+      <div class="mb-3">
+        <label for="loginEmail" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="loginEmail" name="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="loginPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="loginPassword" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-dark w-100">Login</button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" action="signup.php" method="POST" style="display: none;">
+      <div class="mb-3">
+        <label for="signupName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="signupName" name="name" required />
+      </div>
+      <div class="mb-3">
+        <label for="signupEmail" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="signupEmail" name="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="signupPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="signupPassword" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-success w-100">Sign Up</button>
+    </form>
+
+    <!-- Toggle -->
+    <div class="form-toggle">
+      <p id="toggleText">
+        Don't have an account? <span onclick="toggleForm()">Sign Up</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function toggleForm() {
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const formTitle = document.getElementById("formTitle");
+      const toggleText = document.getElementById("toggleText");
+
+      if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        formTitle.textContent = "Login";
+        toggleText.innerHTML =
+          `Don't have an account? <span onclick="toggleForm()">Sign Up</span>`;
+      } else {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        formTitle.textContent = "Sign Up";
+        toggleText.innerHTML =
+          `Already have an account? <span onclick="toggleForm()">Login</span>`;
+      }
+    }
+
+    // Client-side login form validation and redirect
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent default form submission
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (email === "" || password === "") {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      window.location.href = "home.html";
+    });
+  </script>
+</body>
+</html>
